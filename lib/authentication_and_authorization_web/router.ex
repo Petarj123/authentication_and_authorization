@@ -7,5 +7,7 @@ defmodule AuthenticationAndAuthorizationWeb.Router do
 
   scope "/api", AuthenticationAndAuthorizationWeb do
     pipe_through :api
+
+    post "/sign-up", UserController, :create_user
   end
 end

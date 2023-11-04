@@ -41,7 +41,7 @@ defmodule AuthenticationAndAuthorization.Accounts.User do
   defp hash_password(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
-        put_change(changeset, :password_hash, Bcrypt.hash_pwd_salt(password))
+        put_change(changeset, :password, Bcrypt.hash_pwd_salt(password))
       _ ->
         changeset
     end
