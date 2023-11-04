@@ -2,6 +2,7 @@ defmodule AuthenticationAndAuthorization.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:id, :email, :first_name, :last_name]}
   schema "users" do
     field :email, :string
     field :first_name, :string
