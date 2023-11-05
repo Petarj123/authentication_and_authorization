@@ -27,15 +27,18 @@ defmodule AuthenticationAndAuthorizationWeb.Authentication do
 
       user ->
         if Accounts.verify_password(user, password) do
-          case Guardian.create_token(user) do
-            {:ok, _user, token} -> {:ok, %{user: user, token: token}}
-            {:error, _reason} -> {:error, "Failed to create token."}
+          try do
+            {:ok, _user, token} = Guardian.create_token(user)
+            {:ok, %{user: user, token: token}}
+          rescue
+            _e in Guardian.Error -> {:error, "Failed to create token."}
           end
         else
           {:error, "Invalid username/email or password."}
         end
     end
   end
+
 
   def update_user(token, user_params) do
     case Guardian.extract_id_from_token(token) do
