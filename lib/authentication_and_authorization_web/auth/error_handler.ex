@@ -1,15 +1,10 @@
 defmodule AuthenticationAndAuthorizationWeb.ErrorHandler do
   import Plug.Conn
+  def auth_error(conn, {type, _reason}, _opts) do
+    body = Jason.encode!(%{error: to_string(type)})
 
-  def unauthenticated(conn, _params) do
     conn
-    |> put_status(:unauthorized)
-    |> halt()
-  end
-
-  def unauthorized(conn, _params) do
-    conn
-    |> put_status(:forbidden)
-    |> halt()
+    |> put_resp_content_type("application/json")
+    |> send_resp(401, body)
   end
 end
