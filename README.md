@@ -2,7 +2,7 @@
 
 ## Public Endpoints
 
-Sign Up
+#Sign Up
 
     Endpoint: POST /sign-up
     Description: Creates a new user account.
@@ -27,7 +27,7 @@ Sign Up
         Code: 422 Unprocessable Entity
         Content: Error messages in the format { "errors": { "field": ["error message"] } }.
 
-Sign In
+#Sign In
 
     Endpoint: POST /sign-in
     Description: Authenticates a user by username or email and password.
@@ -60,7 +60,7 @@ Sign In
         Code: 401 Unauthorized
         Content: { "error": "Invalid credentials" }.
 
-Login
+#Login
 
     Endpoint: POST /log-in
     Description: Authenticates a user by username or email and returns a token along with user information.
@@ -112,7 +112,7 @@ Error Response:
     
 ## Protected Endpoints
 
-Update User
+#Update User
 
     Endpoint: PUT /update-user
     Description: Updates the user's information. Requires a Bearer token.
@@ -122,15 +122,15 @@ Update User
 
     json
 
-{
-  "user": {
-    "first_name": "Jane",
-    "last_name": "Doe",
-    "email": "janedoe@example.com",
-    "username": "JaneDoe123",
-    "password": "NewPassword123!"
-  }
-}
+    {
+      "user": {
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "email": "janedoe@example.com",
+        "username": "JaneDoe123",
+        "password": "NewPassword123!"
+      }
+    }
 
 Success Response:
 
