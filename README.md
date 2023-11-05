@@ -109,6 +109,8 @@ Error Response:
 
     Code: 401 Unauthorized
     Content: { "error": "Invalid credentials" }.
+    
+## Public Endpoints
 
 Update User
 
