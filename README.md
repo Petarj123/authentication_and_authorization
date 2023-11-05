@@ -110,7 +110,7 @@ Error Response:
     Code: 401 Unauthorized
     Content: { "error": "Invalid credentials" }.
     
-## Public Endpoints
+## Protected Endpoints
 
 Update User
 
