@@ -276,7 +276,7 @@ defmodule AuthenticationAndAuthorizationWeb.UserControllerTest do
 
       assert Repo.aggregate(User, :count, :id) == 1
 
-      login_post = post(conn, "/login", @email_sign_in)
+      login_post = post(conn, "/log-in", @email_sign_in)
       response_body = json_response(login_post, 200)
 
       assert is_binary(response_body["token"])
@@ -295,7 +295,7 @@ defmodule AuthenticationAndAuthorizationWeb.UserControllerTest do
 
       assert Repo.aggregate(User, :count, :id) == 1
 
-      login_post = post(conn, "/login", @invalid_sing_in)
+      login_post = post(conn, "/log-in", @invalid_sing_in)
 
       assert json_response(login_post, 401) == %{
         "error" => "Invalid username/email or password."
@@ -319,7 +319,7 @@ defmodule AuthenticationAndAuthorizationWeb.UserControllerTest do
       create_user = post(conn, "/sign-up", @valid_user)
       assert json_response(create_user, 201)
 
-      login_post = post(conn, "/login", @email_sign_in)
+      login_post = post(conn, "/log-in", @email_sign_in)
       response_body = json_response(login_post, 200)
 
       token = response_body["token"]

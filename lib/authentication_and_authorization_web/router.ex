@@ -17,7 +17,7 @@ defmodule AuthenticationAndAuthorizationWeb.Router do
     # Public endpoints
     post "/sign-up", UserController, :sign_up
     post "/sign-in", UserController, :sign_in
-    post "/login", UserController, :login
+    post "/log-in", UserController, :login
 
   end
 

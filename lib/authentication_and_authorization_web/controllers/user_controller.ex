@@ -42,9 +42,11 @@ defmodule AuthenticationAndAuthorizationWeb.UserController do
           id: user.id,
           first_name: user.first_name,
           last_name: user.last_name,
+          username: user.username,
           email: user.email,
-          username: user.username
+          password: user.password
         }
+
 
         conn
         |> put_status(:ok)
@@ -53,12 +55,13 @@ defmodule AuthenticationAndAuthorizationWeb.UserController do
           token: token
         })
 
-        {:error, reason} ->
-          conn
-          |> put_status(:unauthorized)
-          |> json(%{error: reason})
+      {:error, reason} ->
+        conn
+        |> put_status(:unauthorized)
+        |> json(%{error: reason})
     end
   end
+
 
   def update_user(conn, %{"user" => user_params}) do
     # Extract the Bearer token from the Authorization header
