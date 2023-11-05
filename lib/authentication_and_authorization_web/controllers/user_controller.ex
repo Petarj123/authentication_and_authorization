@@ -1,25 +1,29 @@
 defmodule AuthenticationAndAuthorizationWeb.UserController do
   use AuthenticationAndAuthorizationWeb, :controller
-  alias AuthenticationAndAuthorization.Accounts
-  alias AuthenticationAndAuthorization.Guardian
   alias AuthenticationAndAuthorizationWeb.Authentication
 
   def sign_up(conn, %{"user" => user_params}) do
     case Authentication.sign_up(user_params) do
-      {:ok, user} ->
+      {:ok, _user} ->
         conn
         |> put_status(:created)
         |> json(%{message: "User created successfully"})
 
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> json(%{errors: changeset_errors(changeset)})
+        {:error, changeset} ->
+          errors = Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
+            Enum.reduce(opts, msg, fn {key, value}, acc ->
+              String.replace(acc, "%{#{key}}", to_string(value))
+            end)
+          end)
+
+          conn
+          |> put_status(:unprocessable_entity)
+          |> json(%{errors: errors})
     end
   end
 
   def sign_in(conn, %{"user" => user_params}) do
-    with {:ok, user} <- Authentication.sign_in(user_params["username"] || user_params["email"], user_params["password"]) do
+    with {:ok, _user} <- Authentication.sign_in(user_params["username"] || user_params["email"], user_params["password"]) do
       conn
       |> put_status(:ok)
       |> json(%{message: "Signed in successfully."})
@@ -39,6 +43,7 @@ defmodule AuthenticationAndAuthorizationWeb.UserController do
           first_name: user.first_name,
           last_name: user.last_name,
           email: user.email,
+          username: user.username
         }
 
         conn
@@ -75,12 +80,6 @@ defmodule AuthenticationAndAuthorizationWeb.UserController do
             |> put_status(:unprocessable_entity)
             |> json(%{error: to_string(reason)})
         end
-
-      _ ->
-        # No token or improperly formatted token was provided
-        conn
-        |> put_status(:unauthorized)
-        |> json(%{error: "Invalid or missing token"})
     end
   end
 
