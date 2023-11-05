@@ -213,6 +213,72 @@ defmodule AuthenticationAndAuthorizationWeb.UserControllerTest do
     assert Repo.aggregate(User, :count, :id) == 0
   end
 
+  @short_username_user %{
+    user: %{
+      first_name: "John",
+      last_name: "Doe",
+      email: "johnDoe@example.com",
+      username: "J",
+      password: "validPassword1!"
+    }
+  }
+
+  test "unsuccessful sign-up, username too short, responds with :unprocessable_entity", %{conn: conn} do
+    conn_post = post(conn, "/sign-up", @short_username_user)
+
+    assert json_response(conn_post, 422) == %{
+      "errors" => %{
+        "username" => ["should be at least 6 character(s)"]
+      }
+    }
+
+    assert Repo.aggregate(User, :count, :id) == 0
+  end
+
+  @long_username_user %{
+    user: %{
+      first_name: "John",
+      last_name: "Doe",
+      email: "johnDoe@example.com",
+      username: "JohnDoe1234567890123456",
+      password: "validPassword1!"
+    }
+  }
+
+  test "unsuccessful sign-up, username too long, responds with :unprocessable_entity", %{conn: conn} do
+    conn_post = post(conn, "/sign-up", @long_username_user)
+
+    assert json_response(conn_post, 422) == %{
+      "errors" => %{
+        "username" => ["should be at most 20 character(s)"]
+      }
+    }
+
+    assert Repo.aggregate(User, :count, :id) == 0
+  end
+
+  @long_email_user %{
+    user: %{
+      first_name: "John",
+      last_name: "Doe",
+      email: "johnDoeVeryLongEmailThatExceedsTheMaximumAllowed@example.com", # Assuming the maximum length is 50
+      username: "JohnDoe123",
+      password: "validPassword1!"
+    }
+  }
+
+  test "unsuccessful sign-up, email too long, responds with :unprocessable_entity", %{conn: conn} do
+    conn_post = post(conn, "/sign-up", @long_email_user)
+
+    assert json_response(conn_post, 422) == %{
+      "errors" => %{
+        "email" => ["should be at most 50 character(s)"]
+      }
+    }
+
+    assert Repo.aggregate(User, :count, :id) == 0
+  end
+
   describe "sign-in/2" do
 
     @username_sign_in %{
