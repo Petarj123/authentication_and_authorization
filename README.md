@@ -1,5 +1,7 @@
-Authentication and Authorization API Endpoints
-Public Endpoints
+# Authentication and Authorization API Endpoints
+
+## Public Endpoints
+
 Sign Up
 
     Endpoint: POST /sign-up
@@ -8,39 +10,28 @@ Sign Up
 
     json
 
-{
-  "user": {
-    "first_name": "John",
-    "last_name": "Doe",
-    "email": "johndoe@example.com",
-    "username": "JohnDoe123",
-    "password": "Password123!"
-  }
-}
+    {
+      "user": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "johndoe@example.com",
+        "username": "JohnDoe123",
+        "password": "Password123!"
+      }
+    }
 
-Success Response:
-
-    Code: 201 Created
-    Content:
-
-    json
-
-    { "message": "User created successfully" }
-
-Error Response:
-
-    Code: 422 Unprocessable Entity
-    Content:
-
-    json
-
-        { "errors": { "field": ["error message"] } }
+    Success Response:
+        Code: 201 Created
+        Content: { "message": "User created successfully" }
+    Error Response:
+        Code: 422 Unprocessable Entity
+        Content: Error messages in the format { "errors": { "field": ["error message"] } }.
 
 Sign In
 
     Endpoint: POST /sign-in
     Description: Authenticates a user by username or email and password.
-    Payload: (using username)
+    Payload: (username)
 
     json
 
@@ -51,40 +42,29 @@ Sign In
   }
 }
 
--OR- (using email)
+-OR- (email)
 
 json
 
-{
-  "user": {
-    "email": "johndoe@example.com",
-    "password": "Password123!"
-  }
-}
+    {
+      "user": {
+        "email": "johndoe@example.com",
+        "password": "Password123!"
+      }
+    }
 
-Success Response:
-
-    Code: 200 OK
-    Content:
-
-    json
-
-    { "message": "Signed in successfully." }
-
-Error Response:
-
-    Code: 401 Unauthorized
-    Content:
-
-    json
-
-        { "error": "Invalid credentials" }
+    Success Response:
+        Code: 200 OK
+        Content: { "message": "Signed in successfully." }
+    Error Response:
+        Code: 401 Unauthorized
+        Content: { "error": "Invalid credentials" }.
 
 Login
 
     Endpoint: POST /log-in
     Description: Authenticates a user by username or email and returns a token along with user information.
-    Payload: (using username)
+    Payload: (username)
 
     json
 
@@ -95,7 +75,7 @@ Login
   }
 }
 
--OR- (using email)
+-OR- (email)
 
 json
 
@@ -128,17 +108,14 @@ Success Response:
 Error Response:
 
     Code: 401 Unauthorized
-    Content:
+    Content: { "error": "Invalid credentials" }.
+    
+## Protected Endpoints
 
-    json
-
-        { "error": "Invalid credentials" }
-
-Protected Endpoints
 Update User
 
     Endpoint: PUT /update-user
-    Description: Updates the user's information. Requires a Bearer token for authentication.
+    Description: Updates the user's information. Requires a Bearer token.
     Headers:
         Authorization: Bearer <token>
     Payload:
