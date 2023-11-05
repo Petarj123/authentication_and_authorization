@@ -2,7 +2,7 @@ defmodule AuthenticationAndAuthorization.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, only: [:id, :email, :first_name, :last_name]}
+  @derive {Jason.Encoder, only: [:id, :email, :first_name, :last_name, :username]}
   schema "users" do
     field :email, :string
     field :first_name, :string
@@ -27,8 +27,8 @@ defmodule AuthenticationAndAuthorization.Accounts.User do
     user
     |> cast(attrs, [:first_name, :last_name, :email, :username, :password])
     |> validate_required([:first_name, :last_name, :email, :username, :password])
-    |> validate_format(:email, @email_regex)
-    |> validate_format(:password, @password_regex)
+    |> validate_format(:email, @email_regex, message: "is not a valid email address")
+    |> validate_format(:password, @password_regex, message: "must include at least one uppercase letter, one lowercase letter, one number, and one special character")
     |> validate_length(:first_name, max: 30)
     |> validate_length(:last_name, max: 30)
     |> validate_length(:username, min: @username_min_length, max: @username_max_length)
