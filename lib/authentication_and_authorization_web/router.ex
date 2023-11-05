@@ -11,7 +11,7 @@ defmodule AuthenticationAndAuthorizationWeb.Router do
     plug Guardian.Plug.EnsureAuthenticated
   end
 
-  scope "/api", AuthenticationAndAuthorizationWeb do
+  scope "/", AuthenticationAndAuthorizationWeb do
     pipe_through :api
 
     # Public endpoints
@@ -19,7 +19,12 @@ defmodule AuthenticationAndAuthorizationWeb.Router do
     post "/sign-in", UserController, :sign_in
     post "/login", UserController, :login
 
+  end
+
+  scope "/", AuthenticationAndAuthorizationWeb do
+    pipe_through [:api, AuthenticationAndAuthorizationWeb.Auth.Pipeline]
+
     # Protected endpoints
-    put "/auth/update-user", UserController, :update_user
+    put "/update-user", UserController, :update_user
   end
 end
