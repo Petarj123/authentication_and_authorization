@@ -35,16 +35,16 @@ Sign In
 
     json
 
-{
-  "user": {
-    "username": "JohnDoe123",
-    "password": "Password123!"
-  }
-}
+    {
+      "user": {
+        "username": "JohnDoe123",
+        "password": "Password123!"
+      }
+    }
 
 -OR- (email)
 
-json
+    json
 
     {
       "user": {
@@ -68,23 +68,23 @@ Login
 
     json
 
-{
-  "user": {
-    "username": "JohnDoe123",
-    "password": "Password123!"
-  }
-}
+    {
+      "user": {
+        "username": "JohnDoe123",
+        "password": "Password123!"
+      }
+    }
 
 -OR- (email)
 
-json
-
-{
-  "user": {
-    "email": "johndoe@example.com",
-    "password": "Password123!"
-  }
-}
+    json
+    
+    {
+      "user": {
+        "email": "johndoe@example.com",
+        "password": "Password123!"
+      }
+    }
 
 Success Response:
 
