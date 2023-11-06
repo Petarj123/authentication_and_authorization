@@ -1,9 +1,9 @@
 defmodule AuthenticationAndAuthorizationWeb.UserController do
   use AuthenticationAndAuthorizationWeb, :controller
-  alias AuthenticationAndAuthorizationWeb.Auth.Authentication
+  alias AuthenticationAndAuthorizationWeb.UserManager.UserManager
 
   def sign_up(conn, %{"user" => user_params}) do
-    case Authentication.sign_up(user_params) do
+    case UserManager.sign_up(user_params) do
       {:ok, _user} ->
         conn
         |> put_status(:created)
@@ -23,7 +23,7 @@ defmodule AuthenticationAndAuthorizationWeb.UserController do
   end
 
   def sign_in(conn, %{"user" => user_params}) do
-    with {:ok, _user} <- Authentication.sign_in(user_params["username"] || user_params["email"], user_params["password"]) do
+    with {:ok, _user} <- UserManager.sign_in(user_params["username"] || user_params["email"], user_params["password"]) do
       conn
       |> put_status(:ok)
       |> json(%{message: "Signed in successfully."})
@@ -36,7 +36,7 @@ defmodule AuthenticationAndAuthorizationWeb.UserController do
   end
 
   def login(conn, %{"user" => user_params}) do
-    case Authentication.login(user_params["username"] || user_params["email"], user_params["password"]) do
+    case UserManager.login(user_params["username"] || user_params["email"], user_params["password"]) do
       {:ok, %{user: user, token: token}} ->
         user_data = %{
           id: user.id,
@@ -67,7 +67,7 @@ defmodule AuthenticationAndAuthorizationWeb.UserController do
     # Extract the Bearer token from the Authorization header
     case get_req_header(conn, "authorization") do
       ["Bearer " <> token] ->
-        case Authentication.update_user(token, user_params) do
+        case UserManager.update_user(token, user_params) do
           {:ok, updated_user} ->
             conn
             |> put_status(:ok)

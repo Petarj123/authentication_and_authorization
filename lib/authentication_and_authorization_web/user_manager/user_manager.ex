@@ -1,4 +1,4 @@
-defmodule AuthenticationAndAuthorizationWeb.Auth.Authentication do
+defmodule AuthenticationAndAuthorizationWeb.UserManager.UserManager do
   alias AuthenticationAndAuthorizationWeb.Auth.Guardian
   alias AuthenticationAndAuthorization.Accounts
 
