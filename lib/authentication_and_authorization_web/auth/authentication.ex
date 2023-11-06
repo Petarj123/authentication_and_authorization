@@ -28,8 +28,8 @@ defmodule AuthenticationAndAuthorizationWeb.Authentication do
       user ->
         if Accounts.verify_password(user, password) do
           try do
-            {:ok, token} = Guardian.create_token(user)
-            {:ok, %{token: token}}
+            {:ok, _user, token} = Guardian.create_token(user)
+            {:ok, %{user: user, token: token}}
           rescue
             _e in Guardian.Error -> {:error, "Failed to create token."}
           end
