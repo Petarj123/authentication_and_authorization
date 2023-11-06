@@ -1,4 +1,4 @@
-defmodule AuthenticationAndAuthorization.Guardian do
+defmodule AuthenticationAndAuthorizationWeb.Auth.Guardian do
   use Guardian, otp_app: :authentication_and_authorization
   alias AuthenticationAndAuthorization.Accounts
 

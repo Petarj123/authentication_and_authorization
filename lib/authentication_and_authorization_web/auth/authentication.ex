@@ -1,5 +1,5 @@
-defmodule AuthenticationAndAuthorizationWeb.Authentication do
-  alias AuthenticationAndAuthorization.Guardian
+defmodule AuthenticationAndAuthorizationWeb.Auth.Authentication do
+  alias AuthenticationAndAuthorizationWeb.Auth.Guardian
   alias AuthenticationAndAuthorization.Accounts
 
   def sign_up(user_params) do

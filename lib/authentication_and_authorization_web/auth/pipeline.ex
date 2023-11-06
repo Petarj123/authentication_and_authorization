@@ -1,7 +1,7 @@
 defmodule AuthenticationAndAuthorizationWeb.Auth.Pipeline do
-  alias AuthenticationAndAuthorizationWeb.ErrorHandler
+  alias AuthenticationAndAuthorizationWeb.Auth.ErrorHandler
   use Guardian.Plug.Pipeline, otp_app: :authentication_and_authorization,
-                              module: AuthenticationAndAuthorization.Guardian,
+                              module: AuthenticationAndAuthorizationWeb.Auth.Guardian,
                               error_handler: ErrorHandler
 
   plug Guardian.Plug.VerifyHeader

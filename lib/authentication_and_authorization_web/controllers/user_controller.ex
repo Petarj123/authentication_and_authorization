@@ -1,6 +1,6 @@
 defmodule AuthenticationAndAuthorizationWeb.UserController do
   use AuthenticationAndAuthorizationWeb, :controller
-  alias AuthenticationAndAuthorizationWeb.Authentication
+  alias AuthenticationAndAuthorizationWeb.Auth.Authentication
 
   def sign_up(conn, %{"user" => user_params}) do
     case Authentication.sign_up(user_params) do

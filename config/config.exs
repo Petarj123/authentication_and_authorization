@@ -31,7 +31,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 # Guardian config
-config :authentication_and_authorization, AuthenticationAndAuthorization.Guardian,
+config :authentication_and_authorization, AuthenticationAndAuthorizationWeb.Auth.Guardian,
     issuer: "authentication_and_authorization",
     secret_key: "8qVqL7mXwU2fIn+Q9XbdBj6mkv5fVc6zXh3hXnyh0J3JoY/A2uh6LfkwkDdqLSn/"
 
